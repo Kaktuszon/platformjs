@@ -1,6 +1,6 @@
 let player;
 let floor;
-let platform;
+let platforms = [];
 let window_w = 640;
 let window_h = 480;
 
@@ -10,17 +10,22 @@ function setup() {
     
     player = new Player(350, 70);
     floor = new Block(0, window_h-16, window_w, 16);
-    platform = new Block(320, 100, 6*16, 16);
+    platforms[0] = new Block(320, 350, 6*16, 64);
+    platforms[1] = new Block(30, 420, 4*16, 16);
+    //platform = new Block(320, 350, 6*16, 64);
 }
 
 function draw() {
     background(220);
-    fill(255) //white
-    rect(player.x, player.y, player.w, player.h);
 
     fill(142);
     rect(floor.x, floor.y, floor.w, floor.h);
-    rect(platform.x, platform.y, platform.w, platform.h);
+    for(let i=0; i<platforms.length; i++) {
+        rect(platforms[i].x, platforms[i].y, platforms[i].w, platforms[i].h);        
+    }
+
+	fill(255); //white
+	rect(player.x, player.y, player.w, player.h);
 
     collisionDetection();
 
@@ -60,11 +65,39 @@ function collisionDetection() {
         player.y = floor.y - player.h;
     }
 
-    if(player.x+player.w >= platform.x && player.x <= platform.x+platform.w) {
-        if(player.y+player.h >= platform.y && player.y <= platform.y+platform.h) {
-            player.grounded = true;
-            player.yspeed = 0;
-            player.y = platform.y - player.h;
+
+    platforms.forEach(coll);
+
+}
+
+function coll(platform) {
+    //Player comming from above
+    if(player.x+player.w-2 >= platform.x && player.x+2 <= platform.x+platform.w) {
+        if(player.y+player.h >= platform.y && player.y <= platform.y+5) {
+			player.grounded = true;
+			player.yspeed = 0;
+			player.y = platform.y - player.h;
         }
-    }
+	}
+
+    //Player comming from below
+    if(player.x+player.w-2 >= platform.x && player.x+2 <= platform.x+platform.w) {
+        if(player.y <= platform.y+platform.h && player.y >= platform.y+platform.h-5) {
+			player.yspeed = -player.yspeed;
+        }
+	}
+
+    //Player coming from left
+    if(player.y <= platform.y+platform.h && player.y+player.h >= platform.y) {
+        if(player.x+player.w >= platform.x && player.x+player.w <= platform.x+5) {
+			player.x -= player.xspeed;
+        }
+	}
+
+    //Player coming from right
+    if(player.y <= platform.y+platform.h && player.y+player.h >= platform.y) {
+        if(player.x <= platform.x+platform.w && player.x >= platform.x+platform.w-2) {
+			player.x += player.xspeed;
+        }
+	}
 }
