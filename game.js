@@ -71,6 +71,20 @@ function collisionDetection() {
 }
 
 function coll(platform) {
+    //Player coming from left
+    if(player.y <= platform.y+platform.h && player.y+player.h >= platform.y) {
+        if(player.x+player.w >= platform.x && player.x+player.w <= platform.x+1) {
+			player.x -= player.xspeed;
+        }
+    }
+
+    //Player coming from right
+    if(player.y <= platform.y+platform.h && player.y+player.h >= platform.y) {
+        if(player.x <= platform.x+platform.w && player.x >= platform.x+platform.w-5) {
+			player.x += player.xspeed;
+        }
+    }   
+
     //Player comming from above
     if(player.x+player.w-2 >= platform.x && player.x+2 <= platform.x+platform.w) {
         if(player.y+player.h >= platform.y && player.y <= platform.y+5) {
@@ -86,18 +100,4 @@ function coll(platform) {
 			player.yspeed = -player.yspeed;
         }
 	}
-
-    //Player coming from left
-    if(player.y <= platform.y+platform.h && player.y+player.h >= platform.y) {
-        if(player.x+player.w >= platform.x && player.x+player.w <= platform.x+1) {
-			player.x -= player.xspeed;
-        }
-    }
-
-    //Player coming from right
-    if(player.y <= platform.y+platform.h && player.y+player.h >= platform.y) {
-        if(player.x <= platform.x+platform.w && player.x >= platform.x+platform.w-5) {
-			player.x += player.xspeed;
-        }
-    }
 }
