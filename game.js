@@ -92,12 +92,12 @@ function coll(platform) {
         if(player.x+player.w >= platform.x && player.x+player.w <= platform.x+1) {
 			player.x -= player.xspeed;
         }
-	}
+    }
 
     //Player coming from right
     if(player.y <= platform.y+platform.h && player.y+player.h >= platform.y) {
         if(player.x <= platform.x+platform.w && player.x >= platform.x+platform.w-5) {
 			player.x += player.xspeed;
         }
-	}
+    }
 }
