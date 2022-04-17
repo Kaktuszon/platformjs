@@ -11,7 +11,7 @@ function setup() {
     player = new Player(350, 70);
     floor = new Block(0, window_h-16, window_w, 16);
     platforms[0] = new Block(320, 350, 6*16, 64);
-    platforms[1] = new Block(30, 420, 4*16, 16);
+    platforms[1] = new Block(30, 420, 4*16, 32);
     //platform = new Block(320, 350, 6*16, 64);
 }
 
@@ -89,14 +89,14 @@ function coll(platform) {
 
     //Player coming from left
     if(player.y <= platform.y+platform.h && player.y+player.h >= platform.y) {
-        if(player.x+player.w >= platform.x && player.x+player.w <= platform.x+5) {
+        if(player.x+player.w >= platform.x && player.x+player.w <= platform.x+1) {
 			player.x -= player.xspeed;
         }
 	}
 
     //Player coming from right
     if(player.y <= platform.y+platform.h && player.y+player.h >= platform.y) {
-        if(player.x <= platform.x+platform.w && player.x >= platform.x+platform.w-2) {
+        if(player.x <= platform.x+platform.w && player.x >= platform.x+platform.w-5) {
 			player.x += player.xspeed;
         }
 	}
