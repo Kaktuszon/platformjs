@@ -10,9 +10,9 @@ function setup() {
     
     player = new Player(350, 70);
     floor = new Block(0, window_h-16, window_w, 16);
-    platforms[0] = new Block(320, 350, 6*16, 64);
-    platforms[1] = new Block(30, 420, 4*16, 32);
-    platforms[2] = new Block(100, 120, 8*16, 16);
+    platforms[0] = new Block(320, 450, 6*16, 64);
+    platforms[1] = new Block(30, 420, 4*16, 64);
+    platforms[2] = new Block(30+(8*16), 420, 8*16, 16);
     platforms[3] = new Block(200, 250, 6*16, 64);
     //platform = new Block(320, 350, 6*16, 64);
 }
@@ -41,10 +41,6 @@ function draw() {
 
     if(player.grounded === false) {
         player.y += player.yspeed;
-    }
-
-    if(player.yspeed !== 0) {
-        console.log(player.yspeed);
     }
 }
 
@@ -76,14 +72,14 @@ function collisionDetection() {
 function coll(platform) {
     //Player coming from left
     if(player.y <= platform.y+platform.h && player.y+player.h >= platform.y) {
-        if(player.x+player.w >= platform.x && player.x+player.w <= platform.x+1) {
+        if(player.x+player.w >= platform.x && player.x+player.w <= platform.x+5) {
 			player.x -= player.xspeed;
         }
     }
 
     //Player coming from right
     if(player.y <= platform.y+platform.h && player.y+player.h >= platform.y) {
-        if(player.x <= platform.x+platform.w && player.x >= platform.x+platform.w-1) {
+        if(player.x <= platform.x+platform.w && player.x >= platform.x+platform.w-5) {
 			player.x += player.xspeed;
         }
     }   
