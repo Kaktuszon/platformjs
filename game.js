@@ -12,6 +12,8 @@ function setup() {
     floor = new Block(0, window_h-16, window_w, 16);
     platforms[0] = new Block(320, 350, 6*16, 64);
     platforms[1] = new Block(30, 420, 4*16, 32);
+    platforms[2] = new Block(100, 120, 8*16, 16);
+    platforms[3] = new Block(200, 250, 6*16, 64);
     //platform = new Block(320, 350, 6*16, 64);
 }
 
@@ -41,7 +43,9 @@ function draw() {
         player.y += player.yspeed;
     }
 
-    console.log(player.yspeed);
+    if(player.yspeed !== 0) {
+        console.log(player.yspeed);
+    }
 }
 
 function keyPressed() {
@@ -67,7 +71,6 @@ function collisionDetection() {
 
 
     platforms.forEach(coll);
-
 }
 
 function coll(platform) {
@@ -80,7 +83,7 @@ function coll(platform) {
 
     //Player coming from right
     if(player.y <= platform.y+platform.h && player.y+player.h >= platform.y) {
-        if(player.x <= platform.x+platform.w && player.x >= platform.x+platform.w-5) {
+        if(player.x <= platform.x+platform.w && player.x >= platform.x+platform.w-1) {
 			player.x += player.xspeed;
         }
     }   
@@ -96,7 +99,7 @@ function coll(platform) {
 
     //Player comming from below
     if(player.x+player.w-2 >= platform.x && player.x+2 <= platform.x+platform.w) {
-        if(player.y <= platform.y+platform.h && player.y >= platform.y+platform.h-5) {
+        if(player.y <= platform.y+platform.h && player.y >= platform.y+platform.h-10) {
 			player.yspeed = -player.yspeed;
         }
 	}
